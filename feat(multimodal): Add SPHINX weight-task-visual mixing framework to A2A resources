@@ -1,0 +1,23 @@
+# SPHINX: The Joint Mixing of Weights, Tasks, and Visual Embeddings for Multi-modal LLMs
+
+## Resource Information
+- **Paper**: [SPHINX: The Joint Mixing of Weights, Tasks, and Visual Embeddings for Multi-modal Large Language Models](https://arxiv.org/abs/2311.07575)
+- **Released**: November 2023
+- **Authors**: Chen, Wen and Wei, Yifan, et al.
+
+## Analysis
+SPHINX introduces a groundbreaking three-way mixing framework that efficiently combines model weights, tasks, and visual embeddings. Unlike traditional approaches that require extensive retraining, SPHINX achieves multi-modal capabilities through an innovative mixing mechanism, making it particularly valuable for practical applications where computational resources are limited.
+
+## Technical Implementation
+```python
+class SPHINXMixer(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.weight_mixer = WeightMixingLayer()
+        self.visual_mixer = VisualFusionLayer()
+        self.task_mixer = TaskAdaptationLayer()
+    
+    def forward(self, lang_features, visual_features, task_embed):
+        mixed_weights = self.weight_mixer(self.base_weights, task_embed)
+        multimodal_repr = self.visual_mixer(lang_features, visual_features)
+        return self.task_mixer(multimodal_repr, task_embed, mixed_weights)
